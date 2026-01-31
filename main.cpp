@@ -1,3 +1,12 @@
+/*
+The Idea is for me to get more faimiliar with C++ and Eigen library by implementing a simple MPC with a control barrier function.
+
+Author: Kerim Dzhumageldyev
+*/
+
+
+
+
 
 # include <iostream>
 # include "Environment.h"
@@ -31,9 +40,9 @@ int main() {
     x_0 << 0,
            1;
 
-    environment env(A, B);
+    env env(A, B, x_0);
 
-    VectorXd x = x_0;
+    VectorXd x = env.reset();
 
     // constant input
     VectorXd u(1); 

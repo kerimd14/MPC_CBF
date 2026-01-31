@@ -16,16 +16,30 @@ and B with systemB
 
 
 /*
-The prefix Environment:: means:
-“This function belongs to the Environment struct.”
+The prefix env:: means:
+“This function belongs to the env class.”
 */
-environment::environment(const MatrixXd& systemA, const MatrixXd& systemB) : A(systemA), B(systemB) {
+
+env::env(const MatrixXd& A, const MatrixXd& B, const VectorXd& x0)
+    : A_(A), B_(B), x0_(x0) {}
+
+
+// PEOPLE ON STACK say not to use this and use underscored to differentiate member variables from parameters
+// env::env(const MatrixXd& systemA, const MatrixXd& systemB) {
+//         this-> A = systemA;
+//         this-> B = systemB;
+// }
+
+
+// return x0 to reset the environment
+VectorXd env::reset()
+{
+    return x0_;
 }
 
-
-VectorXd environment::stateUpdate(const VectorXd& x_k, const VectorXd& u_k) const
+VectorXd env::stateUpdate(const VectorXd& x, const VectorXd& u) const
 {
-    return A * x_k + B * u_k;
+    return A_ * x + B_ * u;
 }
 
 
